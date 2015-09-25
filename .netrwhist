@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/nelson/dev/vim/bundle'
+let g:netrw_dirhist_2='/Users/nelson/dev/vim/bundle/bufexplorer'
+let g:netrw_dirhist_3='/Users/nelson/dev/vim/bundle'
+let g:netrw_dirhist_4='/Users/nelson/dev/vim'
+let g:netrw_dirhist_5='/Users/nelson/dev/vim/bundle'
+let g:netrw_dirhist_6='/Users/nelson/dev/vim/bundle/bufexplorer'

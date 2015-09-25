@@ -1,0 +1,142 @@
+snippet html5 "html5 bootstrap"
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$1</title>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
+endsnippet
+
+snippet favicon "default favicons"
+<!-- http://realfavicongenerator.net/ -->
+<meta rel="apple-touch-icon" sizes="57x57"		href="/apple-touch-icon-57x57.png">
+<meta rel="apple-touch-icon" sizes="60x60"		href="/apple-touch-icon-60x60.png">
+<meta rel="apple-touch-icon" sizes="72x72"		href="/apple-touch-icon-72x72.png">
+<meta rel="apple-touch-icon" sizes="76x76"		href="/apple-touch-icon-76x76.png">
+<meta rel="apple-touch-icon" sizes="114x114"	href="/apple-touch-icon-114x114.png">
+<meta rel="apple-touch-icon" sizes="120x120"	href="/apple-touch-icon-120x120.png">
+<meta rel="apple-touch-icon" sizes="144x144"	href="/apple-touch-icon-144x144.png">
+<meta rel="apple-touch-icon" sizes="152x152"	href="/apple-touch-icon-152x152.png">
+<meta rel="icon" type="image/png" sizes="196x196"	href="/favicon-196x196.png">
+<meta rel="icon" type="image/png" sizes="160x160"	href="/favicon-160x160.png">
+<meta rel="icon" type="image/png" sizes="96x96"		href="/favicon-96x96.png">
+<meta rel="icon" type="image/png" sizes="32x32"		href="/favicon-32x32.png">
+<meta rel="icon" type="image/png" sizes="16x16"		href="/favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<!-- android tags -->
+<meta name="mobile-web-app-capable" content="yes">
+endsnippet
+
+snippet twcard "twitter card"
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+endsnippet
+
+snippet twcard "twitter image card"
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="url">
+endsnippet
+
+snippet twcard "twitter photo card"
+<meta name="twitter:card" content="photo">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="http://example.com/photo/a/image.jpg">
+<meta name="twitter:image:width" content="610">
+<meta name="twitter:image:height" content="610">
+endsnippet
+
+snippet twcard "twitter gallery card"
+<meta name="twitter:card" content="gallery">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image0:src" content="http://farm9.staticflickr.com/8236/8383176221_44f50afaba_b.jpg">
+<meta name="twitter:image1:src" content="http://farm9.staticflickr.com/8186/8393798794_3a3d27a621_c.jpg">
+<meta name="twitter:image2:src" content="http://farm9.staticflickr.com/8189/8384260164_511782a797_c.jpg">
+<meta name="twitter:image3:src" content="http://farm9.staticflickr.com/8188/8383177259_f927f13d81_b.jpg">
+endsnippet
+
+snippet twcard "twitter app card"
+<meta name="twitter:card" content="app">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:country" content="US">
+<meta name="twitter:app:name:iphone" content="Example App">
+<meta name="twitter:app:id:iphone" content="306934135">
+<meta name="twitter:app:url:iphone" content="example://action/5149e249222f9e600a7540ef">
+<meta name="twitter:app:name:ipad" content="Example App">
+<meta name="twitter:app:id:ipad" content="306934135">
+<meta name="twitter:app:url:ipad" content="example://action/5149e249222f9e600a7540ef">
+<meta name="twitter:app:name:googleplay" content="Example App">
+<meta name="twitter:app:id:googleplay" content="com.example.app">
+<meta name="twitter:app:url:googleplay" content="http://example.com/action/5149e249222f9e600a7540ef">
+endsnippet
+
+snippet twcard "twitter product card"
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:data1" content="$3">
+<meta name="twitter:label1" content="Price">
+<meta name="twitter:data2" content="Black">
+<meta name="twitter:label2" content="Color">
+<!-- additional footer tags available (See the App Installs and Deep Linking document to learn more) -->
+endsnippet
+
+snippet twcard "twitter player card"
+<meta name="twitter:card" content="player">
+<meta name="twitter:site" content="@netflux">
+<meta name="twitter:creator" content="@g33k">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:player" content="HTTPS URL to iframe player.">
+<meta name="twitter:player:width" content="Width of IFRAME in pixels">
+<meta name="twitter:player:height" content="Height of IFRAME in pixels">
+<meta name="twitter:image" content="Image to be displayed in place of the player on platforms that don't support iframes or inline players.">
+<meta name="twitter:player:stream" content="URL to raw stream that will be rendered in Twitter's mobile applications directly.">
+<meta name="twitter:player:stream:content_type" content="The MIME type/subtype combination that describes the content contained">
+endsnippet
+
+snippet fbogp "facebook OGP"
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="">
+<meta property="og:image" content="">
+<meta property="og:locale" content="">
+<meta property="og:video" content="">
+endsnippet
+
+
