@@ -1,4 +1,4 @@
-execute pathogen#infect('/vol/dev/nelson/vimbundles/bundle')
+execute pathogen#infect('/vol/dev/nelson/vimbundles')
 " Include user's local vim config
 "if filereadable(expand("~/.vimrc.local"))
 "  source ~/.vimrc.local
