@@ -1,4 +1,4 @@
-execute pathogen#infect('/vol/dev/nelson/vimbundles')
+execute pathogen#infect('/home/vagrant/.vimbundles')
 " Include user's local vim config
 "if filereadable(expand("~/.vimrc.local"))
 "  source ~/.vimrc.local
@@ -641,16 +641,18 @@ nnoremap gV `[v`]
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cnoremap w!! w !sudo tee > /dev/null %
 " copy and paste to system clipboard
-vmap <Leader>y "+y
+if exists('$SSH_TTY')
+    vmap <Leader>y :!xclip -f -sel clip
+    map <Leader>p :r!xclip -o -sel clip
+  else
+    vmap <Leader>y "+y
+    nmap <Leader>p "+p
+    nmap <Leader>P "+P
+endif
 vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 " move to end of paste
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
-nnoremap <silent> p p`]
 nnoremap çss :SyntasticCheck<CR>
 nnoremap çst :SyntasticToggleMode<CR>
 inoremap <M-Space> <Space>
