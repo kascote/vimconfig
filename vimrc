@@ -4,7 +4,7 @@ execute pathogen#infect('/home/vagrant/.vimbundles')
 "  source ~/.vimrc.local
 "endif
 
-"---[ Profiler ]----------------------------------------------------------
+"---[ Profiler ]---------------------------------------------------------- {{{
 let g:startup_profile_csv = "/tmp/profile_vim.csv"
 runtime macros/startup_profile.vim
 "}}}
@@ -35,7 +35,7 @@ set hidden                          " permit switch buffers without save it befo
 set noequalalways
 " Use modeline overrides
 set modeline
-set modelines=10
+set modelines=5
 " MacVIM shift+arrow-keys behavior (required in .vimrc)
 let macvim_hig_shift_movement = 1
 
@@ -95,7 +95,7 @@ set wmh=0                   " lineas minimas que se ven al maximizar una ventana
 set t_Co=256                " Configura la consola a 256 colores
 set title                   " set terminal title
 "set virtualedit=all         " permite mover el cursor por todos lados en modo comando
-"set cursorline              " colorea la linea actual del cursor
+set cursorline              " colorea la linea actual del cursor
 if has('gui_running')
   set guioptions+=m           " menu bar
   set guioptions+=g           " grey menu disabled menu items
@@ -115,7 +115,7 @@ endif
 set guicursor=n-v-c:block-Cursor    " set block
 set guicursor+=a:blinkon0           " remove blinking
 set guicursor+=i:ver100             " set block for insert mode
-
+"}}}
 "---[ Visual Cues ]------------------------------------------------------- {{{
 set showmatch               " show matching brackets
 set mat=5                   " how many tenths of a second to blink matching brackets for
@@ -154,27 +154,14 @@ set tw=500                  " Line with
 "---[ Folding ]----------------------------------------------------------- {{{
 " Enable folding, but by default make it act like folding is off, because folding is annoying in anything but a few rare cases
 set foldenable              " Turn on folding
-set foldmethod=manual       " Make folding indent sensitive
+set foldmethod=indent       " Make folding indent sensitive
 "set foldmethod=marker       " Enable folding by fold markers
 set foldnestmax=10
+set foldlevelstart=3        " where start to fold a new buffer
 set foldlevel=1             " Don't autofold anything (but I can still fold manually)
 set foldclose=all           " Autoclose folds, when moving out of them
 set nofoldenable            " don't fold by default
 "}}}
-
-function! NeatFoldText() "{{{
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-endfunction
-set foldtext=NeatFoldText()
-" }}}
-
 "---[ Theme / Colors ]---------------------------------------------------- {{{
 if has("gui_running")
   if has('win32')
@@ -197,16 +184,16 @@ if &t_Co == 8 && $TERM !~# '^linux'
 endif
 
 "}}}
-"
-"---[ File Explorer ]----------------------------------------------------- {{{
+"---[ Plugins ]----------------------------------------------------------- {{{
+"------[ File Explorer ]-------------------------------------------------- {{{
 let g:explVertical=1        " should I split verticially
 let g:explWinSize=40        " width of 35 pixels
 "}}}
-"---[ Win Manager ]------------------------------------------------------- {{{
+"------[ Win Manager ]---------------------------------------------------- {{{
 let g:winManagerWidth=35    " How wide should it be( pixels)
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer' " What windows should it
 "}}}
-"---[ CTags ]------------------------------------------------------------- {{{
+"------[ CTags ]---------------------------------------------------------- {{{
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'           " Location of ctags
 let Tlist_Sort_Type = "name"            " order by
 let Tlist_Use_Right_Window = 1          " split to the right side of the screen
@@ -217,31 +204,24 @@ let Tlist_Enable_Fold_Column = 0        " Do not show folding tree
 let g:ctags_cmd = '"'.expand('~').'/bin/mtags"'
 command! Ctags silent execute '!'.g:ctags_cmd.' *.'.expand('%:e')
 "}}}
-
-"---[ Matchit ]----------------------------------------------------------- {{{
+"------[ Matchit ]-------------------------------------------------------- {{{
 let b:match_ignorecase = 1
 
 "}}}
-
-"---[ Perl ]-------------------------------------------------------------- {{{
+"------[ Perl ]----------------------------------------------------------- {{{
 let perl_extended_vars=1      " highlight advanced perl vars inside strings
 "}}}
-
-"---[ VimDiff ]----------------------------------------------------------- {{{
+"------[ VimDiff ]-------------------------------------------------------- {{{
 set diffopt=filler,iwhite
 "}}}
-
-"---[ Supertab ]---------------------------------------------------------- {{{
+"------[ Supertab ]------------------------------------------------------- {{{
 "}}}
-
-"---[ airline ]---------------------------------------------------------- {{{
+"------[ airline ]-------------------------------------------------------- {{{
 let g:airline_enable_syntastic=1
 let g:airline_theme='simple'
 let g:airline_section_x = '%{PencilMode()}'
 "}}}
-
-
-"---[ Syntastic    ]------------------------------------------------------ {{{
+"------[ Syntastic    ]--------------------------------------------------- {{{
 let g:syntastic_debug = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_always_populate_loc_list = 1
@@ -261,21 +241,18 @@ let g:syntastic_javascript_checkers = ['jshint']
 "let g:syntastic_javascript_gjslint_args=" --nojsdoc --max_line_length 200 "
 "let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 "}}}
-
-"---[ GitGutter    ]------------------------------------------------------ {{{
+"------[ GitGutter    ]--------------------------------------------------- {{{
 let g:gitgutter_eager = 0
 let g:gitgutter_realtime = 0
 "}}}
-
-"---[ Mark ]-------------------------------------------------------------- {{{
+"------[ Mark ]----------------------------------------------------------- {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwDefaultHighlightingNum = 10
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 
 "}}}
-
-"---[ SmartInput ]-------------------------------------------------------- {{{
+"------[ SmartInput ]----------------------------------------------------- {{{
 call smartinput#map_to_trigger('i', '#', '#', '#')
 call smartinput#define_rule({
 \   'at': '\%#',
@@ -293,8 +270,7 @@ call smartinput#define_rule({
 \   'filetype': ['ruby'],
 \ })
 "}}}
-
-"---[ NERDTree ]---------------------------------------------------------- {{{
+"------[ NERDTree ]------------------------------------------------------- {{{
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 let NERDTreeQuitOnOpen=1
 let NERDChristmasTree=1
@@ -303,23 +279,16 @@ let NERDTreeAutoCenterThreshold=5
 let NERDTreeHighlightCursorline=1
 let NERDTreeWinSize=50
 "}}}
-
-"---[ Command-T ]--------------------------------------------------------- {{{
+"------[ Command-T ]------------------------------------------------------ {{{
 let g:CommandTMaxHeight=20
 "}}}
-
-"---[ CTags ]------------------------------------------------------------- {{{
-"nnoremap <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-nnoremap <Leader>rt :!ctags --extra=+f -R --exclude=.git --exclude=log --exclude=.sql *<CR><CR>
-nnoremap <C-\> :tnext<CR>
+"------[ CTags ]---------------------------------------------------------- {{{
 "}}}
-
-"---[ ACK ]--------------------------------------------------------------- {{{
+"------[ ACK ]------------------------------------------------------------ {{{
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 "}}}
-
-"---[ CtrlP ]--------------------------------------------------------------- {{{
+"------[ CtrlP ]---------------------------------------------------------- {{{
 let g:ctrlp_working_path_mode = 'ra'
 " CtrlP
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
@@ -331,9 +300,7 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ --ignore "**/*.pyc"
       \ -g ""'
 "}}}
-
-
-"---[ Lighline ]---------------------------------------------------------- {{{
+"------[ Lighline ]------------------------------------------------------- {{{
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
@@ -443,13 +410,11 @@ let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
 "}}}
-
-"---[ UltiSnipets ]------------------------------------------- {{{
+"------[ UltiSnipets ]---------------------------------------------------- {{{
 "let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 
 "}}}
-
-"---[ Vim Pencil ]------------------------------------------- {{{
+"------[ Vim Pencil ]----------------------------------------------------- {{{
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 
 augroup pencil
@@ -458,16 +423,10 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 "}}}
-
-"---[ LargeFile]------------------------------------------- {{{
+"------[ LargeFile]------------------------------------------------------- {{{
 let g:LargeFile= 5  " MB to cosidere large file
 "}}}
-
-"
-
-
-
-"---[ GoTags ]------------------------------------------------------ {{{
+"------[ GoTags ]--------------------------------------------------------- {{{
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -497,8 +456,7 @@ let g:tagbar_type_go = {
 \ }
 
 "}}}
-
-"---[ Vim-go ]------------------------------------------------------ {{{
+"------[ Vim-go ]--------------------------------------------------------- {{{
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -507,8 +465,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 kj
 "}}}
-
-"---[ NeoComplete ]------------------------------------------------------ {{{
+"------[ NeoComplete ]---------------------------------------------------- {{{
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_fuzzy_completion = 1
@@ -539,7 +496,6 @@ endif
 " see :h ft-ruby-omni
 "let g:rubycomplete_buffer_loading = 1
 "let g:rubycomplete_classes_in_global = 1
-"}}}
 
 let g:ruby_path=['/Users/nelson/.rbenv/rbenv.d/exec/gem-rehash',
                \ '/Users/nelson/.rbenv/versions/2.1.3/lib/ruby/site_ruby/2.1.0',
@@ -551,9 +507,8 @@ let g:ruby_path=['/Users/nelson/.rbenv/rbenv.d/exec/gem-rehash',
                \ '/Users/nelson/.rbenv/versions/2.1.3/lib/ruby/2.1.0',
                \ '/Users/nelson/.rbenv/versions/2.1.3/lib/ruby/2.1.0/x86_64-darwin14.0']
 
-
-
-"---[ Enable omni completion. ]------------------------------------------------------ {{{
+"}}}
+"------[ Enable omni completion. ]---------------------------------------- {{{
 autocmd FileType css            setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown  setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -561,8 +516,7 @@ autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
 "autocmd FileType ruby           setlocal omnifunc=rubycomplete#Complete
 "}}}
-
-
+"}}}
 "---[ Key Mappings ]------------------------------------------------------ {{{
 
 "disable cursor keys
@@ -573,6 +527,8 @@ noremap <Right> <nop>
 
 nnoremap º %
 
+nnoremap <leader>1 :set cursorline!<CR>
+nnoremap <leader>2 :set cursorcolumn!<CR>
 nnoremap <Leader>4 :!bash
 nnoremap <Leader>5 :set invpaste<CR>
 nnoremap <Leader>6 :set invnumber<CR>
@@ -608,6 +564,7 @@ nnoremap <Leader>0 mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 nnoremap <Leader>. :lne<cr>
 nnoremap <Leader>- :lp<cr>
 nnoremap <Leader>c :botright cw 10<cr>
+nnoremap <Leader>u :GundoToggle<cr>
 nnoremap <Leader><cr> :noh<cr>
 " Close the current buffer
 nnoremap <Leader>bd :Bclose<cr>
@@ -615,6 +572,9 @@ nnoremap <Leader>bd :Bclose<cr>
 nnoremap <Leader>ba :1,300 bd!<cr>
 "Pressing ,ss will toggle and untoggle spell checking
 nnoremap <Leader>ss :setlocal spell!<cr>
+"nnoremap <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+nnoremap <Leader>rt :!ctags --extra=+f -R --exclude=.git --exclude=log --exclude=.sql *<CR><CR>
+nnoremap <C-\> :tnext<CR>
 "rails shortcuts
 nnoremap <Leader>rc :Rcontroller<cr>
 nnoremap <Leader>rv :Rview<cr>
@@ -704,12 +664,8 @@ xnoremap Ç ]
 "nnoremap q? ?
 "vnoremap q? ?
 
-
-"}}}
-
-"------------------------------------------------------------------
 command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt() " ------------------------------- {{{
   let l:currentBufNum = bufnr("%")
   let l:alternateBufNum = bufnr("#")
 
@@ -727,9 +683,9 @@ function! <SID>BufcloseCloseIt()
     execute("bdelete! ".l:currentBufNum)
   endif
 endfunction
-
-" Execute a command preserving the cursor position
-function! <SID>Preserve(command)
+" }}}
+function! <SID>Preserve(command) " ------------------------------- {{{
+  " Execute a command preserving the cursor position
   " Preparation: save last search, and cursor position.
   let _s=@/
   let l = line(".")
@@ -740,17 +696,27 @@ function! <SID>Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
-
-
+" }}}
+function! NeatFoldText() " --------------------------------------- {{{
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
+" }}}
+" DiffOrig --------------------------------------------------------- {{{
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 endif
-
-
-"
+" }}}
 "}}}
 "---[ Auto commands ]----------------------------------------------------- {{{
 "no change tab characters for this files
@@ -792,3 +758,5 @@ augroup END
 "runtime! ftdetect/*.vim
 " % to bounce from do to end etc.
 runtime macros/matchit.vim
+
+" vim:foldmethod=marker:foldlevel=0:foldlevelstart=0:foldenable
