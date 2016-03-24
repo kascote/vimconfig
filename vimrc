@@ -111,6 +111,13 @@ if has('gui_running')
     set fuoptions=maxvert,maxhorz
   endif
 endif
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
 
 set guicursor=n-v-c:block-Cursor    " set block
 set guicursor+=a:blinkon0           " remove blinking
@@ -175,12 +182,8 @@ if has("gui_running")
   "colorscheme molokai2 "landscape molokai jellybeans+
   colorscheme molokai3 "landscape molokai jellybeans+
 else
-  colorscheme molokai3 "landscape molokai jellybeans+
-endif
-
-" Allow color schemes to do bright colors without forcing bold.
-if &t_Co == 8 && $TERM !~# '^linux'
-  set t_Co=16
+  set background=dark
+  colorscheme gruvbox "landscape molokai jellybeans+
 endif
 
 "}}}
