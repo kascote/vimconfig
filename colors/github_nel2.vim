@@ -119,10 +119,9 @@ hi DiffChange guibg=#ececec ctermbg=254
 hi DiffAdd gui=none cterm=none
 hi DiffAdd guibg=#DDFFDD ctermbg=194
 hi DiffAdd guifg=#003300 ctermfg=16
-hi CursorColumn guibg=#E8E8EE ctermbg=189
-hi CursorLine guibg=#D8D8DD ctermbg=252
+hi CursorColumn guibg=#E8E8EE ctermfg=none ctermbg=189
+hi CursorLine guibg=#D8D8DD ctermfg=none ctermbg=252
 hi Cursor guibg=#444454 ctermbg=17
 hi Cursor guifg=#F8F8FF ctermfg=231
-hi Normal guibg=#F8F8FF ctermbg=none
-hi Normal guifg=#000000 ctermfg=16
+hi Normal guifg=#000000 ctermfg=none
 

@@ -112,6 +112,13 @@ if has('gui_running')
     set fuoptions=maxvert,maxhorz
   endif
 endif
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
 
 set guicursor=n-v-c:block-Cursor    " set block
 set guicursor+=a:blinkon0           " remove blinking
@@ -603,16 +610,18 @@ nnoremap gV `[v`]
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cnoremap w!! w !sudo tee > /dev/null %
 " copy and paste to system clipboard
-vmap <Leader>y "+y
+if exists('$SSH_TTY')
+    vmap <Leader>y :!xclip -f -sel clip
+    map <Leader>p :r!xclip -o -sel clip
+  else
+    vmap <Leader>y "+y
+    nmap <Leader>p "+p
+    nmap <Leader>P "+P
+endif
 vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 " move to end of paste
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
-nnoremap <silent> p p`]
 nnoremap çss :SyntasticCheck<CR>
 nnoremap çst :SyntasticToggleMode<CR>
 inoremap <M-Space> <Space>
