@@ -93,6 +93,7 @@ set report=0                " tell us when anything is changed via :...
 set fillchars=vert:\ ,stl:\ ,stlnc:\      " make the splitters between windows be blank
 set wmh=0                   " lineas minimas que se ven al maximizar una ventana
 set t_Co=256                " Configura la consola a 256 colores
+set t_ut=
 set title                   " set terminal title
 "set virtualedit=all         " permite mover el cursor por todos lados en modo comando
 set cursorline              " colorea la linea actual del cursor
@@ -175,7 +176,8 @@ if has("gui_running")
   "colorscheme molokai2 "landscape molokai jellybeans+
   colorscheme molokai3 "landscape molokai jellybeans+
 else
-  colorscheme molokai3 "landscape molokai jellybeans+
+  set background=dark
+  colorscheme gruvbox "landscape molokai jellybeans+
 endif
 
 " Allow color schemes to do bright colors without forcing bold.
@@ -194,7 +196,7 @@ let g:winManagerWidth=35    " How wide should it be( pixels)
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer' " What windows should it
 "}}}
 "------[ CTags ]---------------------------------------------------------- {{{
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'           " Location of ctags
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'           " Location of ctags
 let Tlist_Sort_Type = "name"            " order by
 let Tlist_Use_Right_Window = 1          " split to the right side of the screen
 let Tlist_Compart_Format = 1            " show small meny

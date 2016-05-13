@@ -123,6 +123,6 @@ hi CursorColumn guibg=#E8E8EE ctermbg=189
 hi CursorLine guibg=#D8D8DD ctermbg=252
 hi Cursor guibg=#444454 ctermbg=17
 hi Cursor guifg=#F8F8FF ctermfg=231
-hi Normal guibg=#F8F8FF ctermbg=231
+hi Normal guibg=#F8F8FF ctermbg=none
 hi Normal guifg=#000000 ctermfg=16
 
