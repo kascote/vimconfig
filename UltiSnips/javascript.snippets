@@ -267,3 +267,27 @@ snippet fstrict
 	${1}
 }());
 endsnippet
+
+snippet component
+class ${1:Ctrl}Controller {
+  constructor($log) {
+    'ngInject';
+    this.$log = $log;
+	}
+}
+
+class $1Component {
+  constructor() {
+    this.bindings = {};
+    this.controller = $1Controller;
+    this.templateUrl = 'app/${2:comp}/$2.component.html';
+  }
+}
+
+let $1Module = angular
+  .module('app.$2', [])
+  .component('spk$1', new $1Component());
+
+export default $1Module;
+endsnippet
+

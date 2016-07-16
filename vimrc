@@ -1,4 +1,4 @@
-execute pathogen#infect('/home/vagrant/.vimbundles')
+execute pathogen#infect('/vol/dev/nelson/vimbundles')
 " Include user's local vim config
 "if filereadable(expand("~/.vimrc.local"))
 "  source ~/.vimrc.local
@@ -67,17 +67,20 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 " Ignore rails temporary asset caches
 set wildignore+=*/tmp/*
 set wildignore+=*/public/assets/*
+set wildignore+=*/.tmp/*
+set wildignore+=*/dist/*
 " Ignore custom folders
 set wildignore+=*/resources/*
 " Ignore node modules
-set wildignore+=node_modules/*
+set wildignore+=*/node_modules/*
+set wildignore+=*/bower_modules/*
 " Disable temp and backup files
 set wildignore+=*.swp,*~,._*,*.bak
 " Complete options (disable preview scratch window)
 set completeopt=menu,menuone,longest
 set ruler                   " Always show current positions along the bottom
 set cmdheight=2             " the command bar is 2 high
-"set number                  " turn on line numbers
+set number                  " turn on line numbers
 "set relativenumber          " turn relative numbers on"
 set numberwidth=5
 set lazyredraw              " do not redraw while running macros (much faster) (LazyRedraw)
@@ -170,6 +173,15 @@ set foldclose=all           " Autoclose folds, when moving out of them
 set nofoldenable            " don't fold by default
 "}}}
 "---[ Theme / Colors ]---------------------------------------------------- {{{
+
+set background=dark
+let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_hls_cursor="aqua"
+let g:gruvbox_vert_split="bg1"
+let g:gruvbox_italicize_comments="0"
+let g:gruvbox_italicize_strings="0"
+let g:gruvbox_improved_strings="0"
+
 if has("gui_running")
   if has('win32')
     " buuu
@@ -177,12 +189,11 @@ if has("gui_running")
     set guifont=Source\ Code\ Pro\ Light:h14 "Menlo:h15
     "set guifont=InputMono\ ExLight:h13 "Menlo:h15
   elseif has('unix')
-    set guifont=Inconsolata\ 12
+    set guifont=Hack\ 11
   endif
   "colorscheme molokai2 "landscape molokai jellybeans+
-  colorscheme molokai3 "landscape molokai jellybeans+
+  colorscheme gruvbox "landscape molokai jellybeans+
 else
-  set background=dark
   colorscheme gruvbox "landscape molokai jellybeans+
 endif
 
@@ -293,15 +304,28 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 "}}}
 "------[ CtrlP ]---------------------------------------------------------- {{{
 let g:ctrlp_working_path_mode = 'ra'
-" CtrlP
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .map
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ -g ""'
+
+if (1 == executable('sift'))
+  let g:ctrlp_user_command = 'sift -i --no-color --no-group --targets %s'
+  let g:ctrlp_use_caching = 0
+elseif (1 == executable('pt'))
+  let g:ctrlp_user_command = 'pt %s --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+elseif (1 == executable('ag'))
+" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+                              \ --ignore .git
+                              \ --ignore .svn
+                              \ --ignore .hg
+                              \ --ignore .map
+                              \ --ignore .DS_Store
+                              \ --ignore "**/*.pyc"
+                              \ -g ""'
+  let g:ctrlp_use_caching = 0
+elseif (1 == executable('ack'))
+  let g:ctrlp_user_command = 'ack -i --noenv --nocolor --nogroup -g "" %s'
+endif
+
 "}}}
 "------[ Lighline ]------------------------------------------------------- {{{
 let g:lightline = {
@@ -415,6 +439,7 @@ let g:vimshell_force_overwrite_statusline = 0
 "}}}
 "------[ UltiSnipets ]---------------------------------------------------- {{{
 "let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+let g:UltiSnipsUsePythonVersion = 3
 
 "}}}
 "------[ Vim Pencil ]----------------------------------------------------- {{{
@@ -555,8 +580,8 @@ inoremap <C-j> <C-o>J
 
 nnoremap <Leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 nnoremap <Leader>f :execute 'NERDTreeFind '<CR>
-nnoremap <Leader>x :BufExplorer<CR>
-nnoremap <Leader>z :CtrlPBuffer<CR>
+nnoremap <Leader>z :BufExplorer<CR>
+nnoremap <Leader>x :CtrlPBuffer<CR>
 nnoremap <Leader>w :CtrlPMRU<CR>
 "Fast reloading of the .vimrc
 nnoremap <Leader>s :source ~/.vimrc<cr>
@@ -634,17 +659,13 @@ cno $j e ./
 " Normal mode: <Leader>e
 nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" Inserts the path of the currently edited file into a command
-" Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-
 " Unimpaired remap configuration
-noremap ç [
-noremap Ç ]
-onoremap ç [
-onoremap Ç ]
-xnoremap ç [
-xnoremap Ç ]
+nmap ç [
+nmap Ç ]
+omap ç [
+omap Ç ]
+xmap ç [
+xmap Ç ]
 
 
 " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
